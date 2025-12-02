@@ -1,10 +1,14 @@
 # Jetson Thor / JetPack 7 / CUDA 13 / PyTorch 2.8 base
 FROM nvcr.io/nvidia/pytorch:25.08-py3
 
+# ComfyUI version to install (pinned for reproducibility)
+ARG COMFYUI_VERSION=v0.3.76
+
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    COMFYUI_VERSION=${COMFYUI_VERSION}
 
 # OS deps for ComfyUI (image, audio, video support)
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -28,8 +32,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /opt
 
-# Clone official ComfyUI
-RUN git clone --depth=1 https://github.com/comfyanonymous/ComfyUI.git ComfyUI
+# Clone official ComfyUI at pinned version
+RUN git clone --branch ${COMFYUI_VERSION} --depth=1 https://github.com/comfyanonymous/ComfyUI.git ComfyUI
 
 WORKDIR /opt/ComfyUI
 
