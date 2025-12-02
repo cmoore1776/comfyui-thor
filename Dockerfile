@@ -37,8 +37,8 @@ RUN git clone --branch ${COMFYUI_VERSION} --depth=1 https://github.com/comfyanon
 
 WORKDIR /opt/ComfyUI
 
-# Install torchaudio from Jetson AI Lab (CUDA-enabled for Thor, matches PyTorch 2.8.0)
-RUN pip install --index-url https://pypi.jetson-ai-lab.io/sbsa/cu130 "torchaudio==2.8.0" --no-deps
+# Install torchaudio from Jetson AI Lab (CUDA-enabled for Thor)
+RUN pip install --index-url https://pypi.jetson-ai-lab.io/sbsa/cu130 "torchaudio==2.9.0" --no-deps
 
 # Install Python deps (skip torch/torchvision/torchaudio - already provided)
 RUN pip install --upgrade pip && \
